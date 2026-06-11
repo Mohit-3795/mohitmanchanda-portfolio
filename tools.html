@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Solutions — Mohit Manchanda</title>
+  <meta name="description" content="Three targeted AI solutions I built as a non-coder to solve real problems for my team and THEY's biggest client, Motherson Group.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="canonical" href="https://mohitmanchanda.me/tools">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mohitmanchanda.me/tools">
+  <meta property="og:title" content="AI Solutions — Mohit Manchanda">
+  <meta property="og:description" content="I build the AI tools the work needs — 3 now in production at THEY: a B Corp dashboard, a slide library, and a story tracker. (No CS degree.)">
+  <meta property="og:image" content="https://mohitmanchanda.me/images/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI Solutions — Mohit Manchanda">
+  <meta name="twitter:description" content="3 targeted AI solutions in production. Not a coder, just refused to wait for one.">
+  <meta name="twitter:image" content="https://mohitmanchanda.me/images/og-image.jpg">
+  <script>document.documentElement.classList.add("motion");</script>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="brand">
+        <span class="brand-dot"></span>
+        <span>Mohit Manchanda</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="work.html">Work</a>
+        <a href="tools.html" class="active">AI Solutions</a>
+        <a href="about.html">About</a>
+        <a href="about.html#contact" class="nav-cta">Get in touch</a>
+      </div>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line class="bar bar-top" x1="3" y1="7" x2="21" y2="7"/>
+          <line class="bar bar-mid" x1="3" y1="12" x2="21" y2="12"/>
+          <line class="bar bar-bot" x1="3" y1="17" x2="21" y2="17"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="tools-hero" id="main">
+    <div class="tools-hero-text">
+      <span class="eyebrow">My AI Journey</span>
+      <h1>I&rsquo;m not a coder. I&nbsp;just refused to wait for one.</h1>
+      <p class="lede">Three targeted AI solutions in production at THEY, supporting our Motherson work &mdash; plus a Claude Skill I authored for my own venture. Each started the same way: I saw a real problem, mapped the workflow, then used AI to build the fix.</p>
+      <div style="display: flex; gap: 12px; margin-top: 8px;">
+        <a href="#tool-1" class="btn-pill btn-dark">
+          <span>See the solutions</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+        </a>
+        <a href="work.html" class="btn-pill btn-light">
+          <span>See strategic work</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="tools-hero-quote">
+      <blockquote>Most operations roles end where execution begins. Mine starts there.</blockquote>
+      <cite>&mdash; The way I work</cite>
+    </div>
+  </section>
+
+  <!-- TOOL 01 -->
+  <article class="tool-block" id="tool-1">
+    <div class="tool-block-side">
+      <div class="tool-num">01</div>
+      <div class="tool-status">In production &middot; THEY internal</div>
+    </div>
+
+    <div class="tool-block-content">
+      <span class="tool-tag">For B Corp recertification</span>
+      <h2>B&nbsp;Corp Recertification <em>Dashboard</em></h2>
+      <p>Tracks our certification readiness across the 5 stakeholder areas (Workers, Customers, Environment, Community, Governance) plus the 7 new B Lab foundation requirements. Built because spreadsheets stopped scaling.</p>
+      <p>The dashboard auto-calculates a weighted readiness score from live evidence data, flags high-risk gaps, and logs every admin change. Leadership now checks status in real time instead of waiting for weekly slide updates.</p>
+
+      <ul class="tool-features">
+        <li><strong>Weighted readiness engine</strong> from live evidence data</li>
+        <li><strong>Role-based auth</strong> (admin / viewer) with JWT cookies</li>
+        <li><strong>Audit log</strong> on every write with before/after diffs</li>
+        <li><strong>Emissions tracking</strong> for carbon-neutral status</li>
+      </ul>
+
+      <div class="tool-stack">
+        <span class="stack-chip">Next.js 14</span>
+        <span class="stack-chip">TypeScript</span>
+        <span class="stack-chip">Prisma</span>
+        <span class="stack-chip">Chart.js</span>
+        <span class="stack-chip">bcryptjs</span>
+      </div>
+    </div>
+
+    <div class="tool-block-visual">
+      <div class="carousel" data-carousel aria-roledescription="carousel" aria-label="B Corp Dashboard screenshots">
+        <!-- Slides auto-remove if their image file is missing, so nothing breaks. -->
+        <div class="carousel-viewport">
+          <div class="carousel-track">
+            <div class="carousel-slide"><img loading="lazy" src="images/app-bcorp.jpg" alt="B Corp Dashboard — overview with BIA score, recertification readiness, evidence completion, and impact-area breakdown"></div>
+            <div class="carousel-slide"><img loading="lazy" src="images/app-bcorp-2.jpg" alt="B Corp Dashboard — evidence tracker with complete / partial / missing status and risk per requirement"></div>
+            <div class="carousel-slide"><img loading="lazy" src="images/app-bcorp-3.jpg" alt="B Corp Dashboard — environment view tracking emissions, renewable energy, and carbon-neutral targets"></div>
+            <div class="carousel-slide"><img loading="lazy" src="images/app-bcorp-4.jpg" alt="B Corp Dashboard — governance view with readiness breakdown and policy / accountability metrics"></div>
+          </div>
+        </div>
+        <button class="carousel-arrow carousel-prev" aria-label="Previous screenshot" type="button">&#8249;</button>
+        <button class="carousel-arrow carousel-next" aria-label="Next screenshot" type="button">&#8250;</button>
+        <div class="carousel-dots" aria-hidden="true"></div>
+      </div>
+    </div>
+  </article>
+
+  <!-- TOOL 02 -->
+  <article class="tool-block" id="tool-2">
+    <div class="tool-block-side">
+      <div class="tool-num">02</div>
+      <div class="tool-status">In production &middot; Daily use</div>
+    </div>
+
+    <div class="tool-block-content">
+      <span class="tool-tag">For leadership presentations</span>
+      <h2>Motherson <em>Slide Library</em></h2>
+      <p>Hundreds of leadership presentation slides &mdash; built over years for the Chairman&rsquo;s office and investor decks &mdash; sitting in folders nobody could search through.</p>
+      <p>This tool extracts every slide from .pptx files, indexes them visually, and serves a searchable dashboard. Finding the right slide went from 30 minutes of digging to seconds. The team uses it daily when preparing new decks.</p>
+
+      <ul class="tool-features">
+        <li><strong>Auto-extraction</strong> from .pptx files using JSZip</li>
+        <li><strong>Visual thumbnail grid</strong> grouped by presentation</li>
+        <li><strong>Keyword search</strong> across all slide content</li>
+        <li><strong>Zero-setup launch</strong> &mdash; double-click to run locally</li>
+      </ul>
+
+      <div class="tool-stack">
+        <span class="stack-chip">Node.js</span>
+        <span class="stack-chip">JSZip</span>
+        <span class="stack-chip">Chokidar</span>
+        <span class="stack-chip">Vanilla JS</span>
+      </div>
+    </div>
+
+    <div class="tool-block-visual">
+      <div class="carousel" data-carousel aria-roledescription="carousel" aria-label="Slide Library screenshots">
+        <div class="carousel-viewport">
+          <div class="carousel-track">
+            <div class="carousel-slide"><img loading="lazy" src="images/app-slide-library.jpg" alt="Slide Library — searchable visual grid of leadership presentation slides"></div>
+            <div class="carousel-slide"><img loading="lazy" src="images/app-slide-library-2.jpg" alt="Slide Library overview — 65 decks, 3,352 slides, 5 years, with AI search"></div>
+            <div class="carousel-slide"><img loading="lazy" src="images/app-slide-library-3.jpg" alt="Slide Library — single slide detail view with download, copy image, and re-index actions"></div>
+          </div>
+        </div>
+        <button class="carousel-arrow carousel-prev" aria-label="Previous screenshot" type="button">&#8249;</button>
+        <button class="carousel-arrow carousel-next" aria-label="Next screenshot" type="button">&#8250;</button>
+        <div class="carousel-dots" aria-hidden="true"></div>
+      </div>
+    </div>
+  </article>
+
+  <!-- TOOL 03 -->
+  <article class="tool-block" id="tool-3">
+    <div class="tool-block-side">
+      <div class="tool-num">03</div>
+      <div class="tool-status">In production &middot; Vision 2030</div>
+    </div>
+
+    <div class="tool-block-content">
+      <span class="tool-tag">For Motherson&rsquo;s Vision 2030</span>
+      <h2>Motherson <em>Story Tracker</em></h2>
+      <p>To support Motherson&rsquo;s Vision 2030 ambitions we needed to collect compelling stories from across <strong>12 business divisions</strong> (Wiring Harness, Vision Systems, Aerospace, and more) and <strong>5 global regions</strong>, mapped to <strong>16 storytelling themes</strong> &mdash; Automation, Digital Twin, AI, Operational Excellence, Sustainability, and others.</p>
+      <p>Spreadsheets couldn&rsquo;t show gaps. This tool can. It surfaces which theme-division combinations lack coverage, lets editors tag stories across themes, and includes an OpenAI-powered chatbot that analyses patterns across hundreds of submissions.</p>
+
+      <ul class="tool-features">
+        <li><strong>Interactive story roadmap</strong> across themes &times; divisions</li>
+        <li><strong>Gap analysis</strong> showing missing narratives instantly</li>
+        <li><strong>AI assistant</strong> (OpenAI) for editorial pattern detection</li>
+        <li><strong>Excel I/O</strong> to import existing data and export for review</li>
+        <li><strong>Secure JWT auth</strong> with per-user accounts</li>
+      </ul>
+
+      <div class="tool-stack">
+        <span class="stack-chip">Vercel</span>
+        <span class="stack-chip">JWT Auth</span>
+        <span class="stack-chip">OpenAI API</span>
+        <span class="stack-chip">Excel I/O</span>
+        <span class="stack-chip">dotenv</span>
+      </div>
+    </div>
+
+    <div class="tool-block-visual">
+      <div class="carousel" data-carousel aria-roledescription="carousel" aria-label="Story Tracker screenshots">
+        <div class="carousel-viewport">
+          <div class="carousel-track">
+            <div class="carousel-slide"><img loading="lazy" src="images/app-story-tracker.jpg" alt="Story Tracker — story roadmap mapping stories across Motherson divisions and storytelling themes, colour-coded by region"></div>
+            <div class="carousel-slide"><img loading="lazy" src="images/app-story-tracker-2.jpg" alt="Story Tracker — analysis dashboard: theme coverage, collection health, balance score, and coverage-vs-target bars"></div>
+            <div class="carousel-slide"><img loading="lazy" src="images/app-story-tracker-3.jpg" alt="Story Tracker — story geography world map showing coverage across Motherson regions"></div>
+            <div class="carousel-slide"><img loading="lazy" src="images/app-story-tracker-4.jpg" alt="Story Tracker — single story detail with division, themes, disclosure level, and narrative fields"></div>
+          </div>
+        </div>
+        <button class="carousel-arrow carousel-prev" aria-label="Previous screenshot" type="button">&#8249;</button>
+        <button class="carousel-arrow carousel-next" aria-label="Next screenshot" type="button">&#8250;</button>
+        <div class="carousel-dots" aria-hidden="true"></div>
+      </div>
+    </div>
+  </article>
+
+  <!-- TOOL 04 — Vastu Pandit (a Claude Skill) -->
+  <article class="tool-block" id="tool-4">
+    <div class="tool-block-side">
+      <div class="tool-num">04</div>
+      <div class="tool-status">Personal project &middot; Claude Skill</div>
+    </div>
+
+    <div class="tool-block-content">
+      <span class="tool-tag">A Claude Skill I authored</span>
+      <h2>Vastu <em>Pandit</em></h2>
+      <p>A standing AI advisor that reads a decision through three traditional lenses &mdash; <strong>Jyotish, Vastu, and numerology</strong> &mdash; and answers like a trusted family pandit: a clear one-line verdict, and a remedy or better date when something isn&rsquo;t auspicious.</p>
+      <p>Built as a proper <strong>Claude Agent Skill</strong> &mdash; routing logic, 14 reference playbooks, and Python scripts that actually <em>compute</em> the panchang and birth chart (pyephem) rather than guess. It onboards a new user, writes their profile, and personalises every answer after that.</p>
+
+      <ul class="tool-features">
+        <li><strong>Real computation</strong> &mdash; panchang &amp; kundli via Python + pyephem, never from memory</li>
+        <li><strong>Profile-based</strong> &mdash; onboards once, then tailors to the chart</li>
+        <li><strong>Mentor-style answers</strong> &mdash; one-line verdict + remedy, not a jargon dump</li>
+        <li><strong>Shareable</strong> &mdash; swap in a blank profile to hand it to anyone</li>
+      </ul>
+
+      <div class="tool-stack">
+        <span class="stack-chip">Claude Agent Skills</span>
+        <span class="stack-chip">Python</span>
+        <span class="stack-chip">pyephem</span>
+        <span class="stack-chip">Markdown</span>
+      </div>
+    </div>
+
+    <div class="tool-block-visual">
+      <div class="vastu-skill">
+        <div class="vastu-skill-bar">
+          <span class="vastu-skill-dot"></span>
+          <span>/vastu-jyotish-mentor</span>
+          <span class="vastu-skill-tag">Claude Skill</span>
+        </div>
+        <div class="vastu-skill-body">
+          <div class="vastu-msg vastu-msg-q">Good muhurta to register the company this month?</div>
+          <div class="vastu-msg vastu-msg-a">
+            Hold off till after <strong>15 June</strong> &mdash; it&rsquo;s <strong>Adhik Maas</strong>, the extra &ldquo;leap month&rdquo; when new ventures pause. Best window: <strong>Thursday the 25th</strong>.
+            <span class="vastu-followup">want the full chart reasoning?</span>
+          </div>
+          <div class="vastu-lenses"><span>Jyotish</span><span>Vastu</span><span>Numerology</span></div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- Why this matters -->
+  <section class="tools-hero" style="border-top: 1px solid var(--line); margin-top: 0;">
+    <div class="tools-hero-text">
+      <span class="eyebrow">Why this matters</span>
+      <h1>The point isn&rsquo;t the code. It&rsquo;s the <em>thinking</em>.</h1>
+      <p class="lede">Anyone can ship a tutorial app. What I bring is the operations lens &mdash; spotting the workflow gap, scoping the right solution, and building only what the team will actually use. The technical execution is downstream of clear thinking.</p>
+    </div>
+    <div class="tools-hero-quote">
+      <blockquote>I built these because the alternative was waiting six months for an engineering ticket. The tools shipped in weeks.</blockquote>
+      <cite>&mdash; Mohit Manchanda</cite>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-lead">
+        <h3>Need someone who builds<br>what they can&rsquo;t find?</h3>
+        <p>Most of my best work came from refusing to accept &ldquo;that doesn&rsquo;t exist yet&rdquo; as an answer.</p>
+        <a href="mailto:mohitmanchanda03@gmail.com" class="btn-pill">
+          <span>mohitmanchanda03@gmail.com</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <a href="index.html">Home</a>
+        <a href="work.html">Strategic Work</a>
+        <a href="tools.html">AI Solutions</a>
+        <a href="about.html">About</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="mailto:mohitmanchanda03@gmail.com">Email</a>
+        <a href="tel:+919871480006">+91 98714 80006</a>
+        <a href="https://www.linkedin.com/in/mohitmanchanda/" target="_blank">LinkedIn</a>
+        <a href="Mohit_creative_resume.pdf" target="_blank">Download Resume</a>
+        <a href="resumes.html">Resume versions</a>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>&copy; Mohit Manchanda 2026</span>
+      <span class="colophon">Designed &amp; directed by Mohit Manchanda &mdash; built with Claude. <em>No framework, no template.</em></span>
+      <span>New Delhi, India</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

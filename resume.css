@@ -1,0 +1,99 @@
+/* ============================================
+   Shared styles for all resume versions
+   Print-ready, ATS-friendly, single column.
+   ============================================ */
+:root {
+  --ink: #15140f;
+  --soft: #44423c;
+  --mute: #6d6a62;
+  --line: #d9d5cc;
+  --accent: #b8421f;
+  --sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', system-ui, sans-serif;
+  --mono: ui-monospace, 'SF Mono', Menlo, monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--sans);
+  color: var(--ink);
+  background: #f3f1ec;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  font-size: 14px;
+  padding: 32px 16px;
+}
+.sheet {
+  max-width: 820px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 56px 60px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+  border-radius: 4px;
+}
+
+/* Header */
+header { border-bottom: 2px solid var(--ink); padding-bottom: 18px; margin-bottom: 24px; }
+h1 { font-size: 30px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; }
+.role { font-size: 15px; color: var(--accent); font-weight: 600; margin-top: 4px; }
+.contact { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12.5px; color: var(--soft); font-family: var(--mono); }
+.contact a { color: var(--soft); text-decoration: none; }
+.contact a.portfolio { color: var(--accent); font-weight: 600; }
+
+/* Summary */
+.summary { font-size: 14.5px; color: var(--soft); margin-bottom: 32px; max-width: 72ch; }
+.summary strong { color: var(--ink); font-weight: 600; }
+
+/* Sections — more vertical breathing room */
+section { margin-bottom: 30px; }
+h2 {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--accent); font-weight: 700;
+  padding-bottom: 6px; margin-bottom: 16px; border-bottom: 1px solid var(--line);
+}
+
+/* Experience entries */
+.org { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.org-name { font-size: 15px; font-weight: 700; }
+.org-meta { font-family: var(--mono); font-size: 12px; color: var(--mute); white-space: nowrap; }
+.role-line { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-top: 16px; }
+.role-title { font-size: 13.5px; font-weight: 600; color: var(--ink); }
+.role-dates { font-family: var(--mono); font-size: 11.5px; color: var(--mute); white-space: nowrap; }
+ul { list-style: none; margin: 8px 0 4px; }
+li { position: relative; padding-left: 16px; margin-bottom: 8px; font-size: 13.5px; color: var(--soft); }
+li:last-child { margin-bottom: 0; }
+li::before { content: ''; position: absolute; left: 0; top: 10px; width: 6px; height: 1px; background: var(--accent); }
+li strong { color: var(--ink); font-weight: 600; }
+.entry + .entry { margin-top: 24px; }
+
+/* Two-column blocks (AI tools) */
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 28px; }
+.tool { font-size: 13.5px; color: var(--soft); }
+.tool b { color: var(--ink); font-weight: 600; display: block; margin-bottom: 2px; }
+.tool span { font-family: var(--mono); font-size: 11px; color: var(--mute); }
+
+/* Education */
+.edu { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 8px; }
+.edu b { font-weight: 600; }
+.edu .org-meta { color: var(--mute); }
+
+.skills { font-size: 13.5px; color: var(--soft); }
+
+/* Screen-only action bar */
+.actions { max-width: 820px; margin: 0 auto 16px; display: flex; justify-content: flex-end; gap: 10px; align-items: center; }
+.actions .ver { margin-right: auto; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--mute); }
+.btn { font: inherit; font-size: 13px; font-weight: 600; padding: 9px 16px; border-radius: 999px; border: 1px solid var(--ink); background: var(--ink); color: #fff; cursor: pointer; text-decoration: none; }
+.btn.ghost { background: transparent; color: var(--ink); }
+
+@media print {
+  @page { margin: 14mm; }
+  body { background: #fff; padding: 0; font-size: 10.5pt; }
+  .sheet { box-shadow: none; max-width: none; padding: 0; border-radius: 0; }
+  .actions { display: none; }
+  h1 { font-size: 22pt; }
+  a { color: inherit; }
+}
+
+/* Mobile: relax the sheet padding so the resume isn't cramped on phones */
+@media (max-width: 640px) {
+  body { padding: 20px 12px; }
+  .sheet { padding: 28px 20px; }
+}

@@ -1,0 +1,15 @@
+# OS / editor cruft
+.DS_Store
+.style.css.new
+node_modules/
+.netlify/
+
+# Private / confidential — must NEVER be published
+AI solutions/
+HANDOVER.md
+PORTFOLIO_HANDOVER.md
+*.xlsx
+
+# Image backups / originals (large, not for the live site)
+images/_orig/
+images/_orig_storytracker_backup/
