@@ -28,6 +28,10 @@
        page can never get stuck mid-intro if the external script fails. */
     (function () {
       if (!matchMedia("(prefers-reduced-motion: no-preference)").matches) return;
+      /* once per browsing session: a welcome, not a doormat — returning to the
+         homepage mid-visit gets the static page. (Flag is set only when the
+         intro actually plays; storage failures fall back to playing.) */
+      try { if (sessionStorage.getItem("hero-intro") === "1") return; } catch (e) {}
       var root = document.documentElement;
       root.classList.add("intro");
       var finish = function () { root.classList.remove("intro"); root.classList.add("intro-done"); };
@@ -42,6 +46,7 @@
            and the fade-in plays to nobody */
         requestAnimationFrame(function () { requestAnimationFrame(function () {
           root.classList.add("intro-go");
+          try { sessionStorage.setItem("hero-intro", "1"); } catch (e) {}
           setTimeout(finish, 3500);
         }); });
       };
