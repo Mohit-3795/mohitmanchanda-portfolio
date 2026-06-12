@@ -560,7 +560,7 @@
             </section>
             <section class="case-section">
               <h3>Telling the story</h3>
-              <p>Certification was only half of it &mdash; the company had to <em>feel</em> the change. I designed the internal deck that carried THEY through its B&nbsp;Corp journey, owning the narrative flow and the visual design end to end.</p>
+              <p>Certification was only half of it &mdash; the company had to <em>feel</em> the change. I designed the internal deck that carried THEY through its B&nbsp;Corp journey, owning the narrative flow and the visual design end to end. A few beats below &mdash; the full nineteen are one click away.</p>
               <div class="case-slides">
                 <figure>
                   <img loading="lazy" src="images/bcorp-slide-what.jpg" alt="What is B Corp? explainer slide with the B Corp logo and an overview of the certification">
@@ -579,6 +579,14 @@
                   <figcaption>And a close that made it land &mdash; this was a team win.</figcaption>
                 </figure>
               </div>
+              <button type="button" class="deck-open" data-deck="bcorp">
+                <span class="deck-open-thumb"><img loading="lazy" src="images/bcorp-deck-t01.jpg" alt="" width="64" height="36"></span>
+                <span class="deck-open-text">
+                  <span class="deck-open-main">Flip through the full deck</span>
+                  <span class="deck-open-sub">All 19 slides &mdash; the way it was presented</span>
+                </span>
+                <span class="deck-open-arrow" aria-hidden="true">&rarr;</span>
+              </button>
             </section>
             <section class="case-section">
               <h3>Outcomes</h3>
@@ -594,6 +602,9 @@
       </div>
     </div>
   </dialog>
+
+  <!-- Full-deck viewer (filled by script.js / inline JS) -->
+  <dialog class="deck-modal" id="deck-bcorp" aria-label="THEY&rsquo;s B Corp deck — all 19 slides"></dialog>
 
   <!-- 07 Osaka -->
   <dialog class="case-modal" id="case-osaka">
@@ -751,6 +762,119 @@
         if (body) body.scrollTop = 0;
         // Drop the #case hash so the URL returns to /work
         if (location.hash && history.replaceState) history.replaceState(null, '', location.pathname + location.search);
+      });
+    });
+
+    // ---- Full-deck viewer ----------------------------------------
+    // Opens a second, top-layer dialog above the case modal so the whole
+    // presentation can be flipped through slide-by-slide — not just stills.
+    const deckReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const A = (n, alt) => ({ f: 'images/bcorp-deck-' + n + '.jpg', t: 'images/bcorp-deck-t' + n + '.jpg', a: alt });
+    const decks = {
+      bcorp: {
+        label: 'THEY’s B Corp journey — internal deck, narrative & design by Mohit',
+        slides: [
+          A('01', 'Opening slide: “How is COVID changing us?” over a tree at dusk — the deck starts with the moment that prompted the question.'),
+          A('02', '“And after one year…” — a reflective beat before the answer.'),
+          A('03', '“What is B Corp?” — an explainer slide with the B Corp logo, setting a shared baseline.'),
+          A('04', '“120+ questions” — the scale of the B Impact Assessment THEY worked through.'),
+          A('05', '“When do we start?” — a person at a laptop, the decision to begin.'),
+          A('06', 'The five B Corp stakeholder pillars — Workers, Customers, Governance, Community and Environment.'),
+          A('07', 'The team in discussion — the first glimpse that THEY could be a company that makes a difference.'),
+          A('08', '“We had clarity about how we needed to change” — priorities mapped on a matrix.'),
+          A('09', 'What THEY were already doing well — governance, shown with the team.'),
+          A('10', 'Where THEY needed to improve — the team working together.'),
+          A('11', 'The activities THEY committed to taking on.'),
+          A('12', 'The team outdoors — culture treated as part of the change.'),
+          A('13', 'The wider THEY team together.'),
+          A('14', '“THEY became US” — the team holding their B Corp certificates.'),
+          A('15', '“THEY went out of their comfort zone” — community giving in action.'),
+          A('16', 'An embossed B Corp detail — craft in the telling.'),
+          A('17', 'Real environmental action — solar panels at the Delhi office.'),
+          A('18', '“B Corp fundamentally changed how we view our work” — sustainability, transparency, impact.'),
+          A('19', '“THEY THANK YOU!” — the embossed closing slide.')
+        ]
+      }
+    };
+
+    document.querySelectorAll('[data-deck]').forEach((btn) => {
+      const key = btn.dataset.deck;
+      const data = decks[key];
+      const dialog = document.getElementById('deck-' + key);
+      if (!data || !dialog) return;
+
+      let built = false, current = 0, preloaded = false;
+      let stageImg, counterEl, thumbs = [];
+
+      function build() {
+        built = true;
+        dialog.innerHTML =
+          '<button type="button" class="deck-close" aria-label="Close deck">✕</button>' +
+          '<div class="deck-stage">' +
+            '<button type="button" class="deck-nav deck-prev" aria-label="Previous slide">‹</button>' +
+            '<figure class="deck-frame"><img class="deck-current" alt="" width="1600" height="900"></figure>' +
+            '<button type="button" class="deck-nav deck-next" aria-label="Next slide">›</button>' +
+          '</div>' +
+          '<div class="deck-bar">' +
+            '<div class="deck-info"><span class="deck-counter"></span><span class="deck-credit"></span></div>' +
+            '<div class="deck-strip" role="tablist" aria-label="All slides"></div>' +
+          '</div>';
+        stageImg = dialog.querySelector('.deck-current');
+        counterEl = dialog.querySelector('.deck-counter');
+        dialog.querySelector('.deck-credit').textContent = data.label;
+        const strip = dialog.querySelector('.deck-strip');
+        data.slides.forEach((s, i) => {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.className = 'deck-thumb';
+          b.setAttribute('role', 'tab');
+          b.setAttribute('aria-label', 'Slide ' + (i + 1));
+          b.innerHTML = '<img loading="lazy" src="' + s.t + '" alt="" width="256" height="144">';
+          b.addEventListener('click', () => go(i));
+          strip.appendChild(b);
+          thumbs.push(b);
+        });
+        dialog.querySelector('.deck-close').addEventListener('click', () => dialog.close());
+        dialog.querySelector('.deck-prev').addEventListener('click', () => go(current - 1));
+        dialog.querySelector('.deck-next').addEventListener('click', () => go(current + 1));
+        dialog.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); });
+        dialog.addEventListener('keydown', (e) => {
+          if (e.key === 'ArrowLeft') { e.preventDefault(); go(current - 1); }
+          else if (e.key === 'ArrowRight') { e.preventDefault(); go(current + 1); }
+        });
+        dialog.addEventListener('close', () => {
+          // Only restore page scroll if no case modal is still holding it.
+          if (!document.querySelector('.case-modal[open]')) document.body.style.overflow = '';
+        });
+      }
+
+      function go(n) {
+        const count = data.slides.length;
+        current = (n + count) % count;
+        const s = data.slides[current];
+        stageImg.src = s.f;
+        stageImg.alt = s.a;
+        counterEl.innerHTML = '<b>' + String(current + 1).padStart(2, '0') + '</b> / ' + count;
+        thumbs.forEach((t, i) => {
+          const on = i === current;
+          t.classList.toggle('is-active', on);
+          t.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+        thumbs[current].scrollIntoView({ block: 'nearest', inline: 'center', behavior: deckReduce ? 'auto' : 'smooth' });
+      }
+
+      function preload() {
+        if (preloaded) return;
+        preloaded = true;
+        data.slides.forEach((s) => { const im = new Image(); im.src = s.f; });
+      }
+
+      btn.addEventListener('click', () => {
+        if (!built) build();
+        go(0);
+        if (typeof dialog.showModal === 'function' && !dialog.open) dialog.showModal();
+        document.body.style.overflow = 'hidden';
+        preload();
       });
     });
   </script>

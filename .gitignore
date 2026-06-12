@@ -3,6 +3,7 @@
 .style.css.new
 node_modules/
 .netlify/
+.claude/
 
 # Private / confidential — must NEVER be published
 AI solutions/
