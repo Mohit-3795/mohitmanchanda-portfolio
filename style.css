@@ -969,7 +969,9 @@ button:focus-visible,
 .work-item .work-image {
   aspect-ratio: 16/10;
   background: var(--bg-dark);
-  padding: 12px;
+  /* The mat is a BORDER, not padding: overflow clips children at the border's inner
+     edge, so the photo can zoom inside its window without ever covering the mat. */
+  border: 12px solid var(--bg-dark);
   overflow: hidden;
   position: relative;
   border-radius: var(--radius-sm);
@@ -980,13 +982,16 @@ button:focus-visible,
   height: 100%;
   object-fit: cover;
   border-radius: 6px;
+  transition: transform 900ms var(--ease);
 }
-/* No inner-image zoom on matted frames — a photo scaling inside its mat reads as a
-   glitch, not a flourish. The card's hover lift + shadow carry the interaction. */
+/* The pop, done right — the image zooms within its frame; the mat stays crisp.
+   (is-cover-wide is excluded: its poster is an object on a backdrop, not a window.) */
+.work-item:hover .work-image:not(.is-cover-wide) img { transform: scale(1.045); }
 
 /* Alternating lighter frame — breaks the wall of dark frames into a rhythm */
 .work-item .work-image.frame-light {
   background: var(--bg-soft);
+  border-color: var(--bg-soft);
 }
 .work-item .work-image.frame-light img {
   border: 1px solid var(--line);
@@ -996,7 +1001,7 @@ button:focus-visible,
 .work-item .work-image.is-cover {
   aspect-ratio: 4/5;
   background: var(--bg-dark);
-  padding: 14px;
+  border-width: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1014,6 +1019,10 @@ button:focus-visible,
    blurred backdrop of itself (so the wide frame reads as a framed poster, not empty mat) */
 .work-item .work-image.is-cover-wide {
   aspect-ratio: 16/10;
+  /* keeps the padding mat (no border trick): its blurred ::before backdrop must
+     fill the whole frame, and overflow would clip it at a border's inner edge */
+  border: 0;
+  padding: 12px;
 }
 .work-item .work-image.is-cover-wide::before {
   content: "";
