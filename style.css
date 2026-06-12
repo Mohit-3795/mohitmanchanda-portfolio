@@ -1145,6 +1145,35 @@ img[src*="bcorp-spread"] {
   letter-spacing: -0.03em;
 }
 
+/* Full-width multi-slide showcase — copy panel + a small reel of deck stills.
+   Namespaced under .work-showcase / .work-shot so no global .work-item rule is touched. */
+.work-showcase {
+  grid-column: span 12;
+  display: grid;
+  grid-template-columns: minmax(0, 0.78fr) minmax(0, 1fr);  /* ~44% copy / ~56% reel */
+  gap: clamp(20px, 3vw, 40px);
+  align-items: center;
+  padding: clamp(24px, 3vw, 40px);
+}
+.work-showcase .showcase-copy { display: flex; flex-direction: column; gap: 14px; padding: 8px; }
+.work-showcase h3 { font-size: clamp(26px, 3vw, 40px); }   /* between half and hero */
+.work-showcase .work-desc { font-size: 16px; line-height: 1.6; max-width: 48ch; }
+.work-showcase .open-hint { margin-top: 8px; }
+.work-showcase .showcase-reel { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.work-shot { margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.work-shot.is-primary { grid-column: 1 / -1; }             /* primary spans both reel columns */
+.work-shot > img {
+  width: 100%; aspect-ratio: 16 / 9; object-fit: cover;
+  border-radius: var(--radius-sm); background: var(--bg-soft);
+  border: 1px solid var(--line); display: block;
+  transition: transform 600ms var(--ease);
+}
+.work-shot figcaption {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.04em;
+  color: var(--text-mute); text-transform: uppercase;
+}
+.work-showcase:hover .work-shot.is-primary > img { transform: scale(1.02); }
+
 /* ============================================
    CASE STUDY MODAL (work.html)
    ============================================ */
@@ -2858,6 +2887,8 @@ img[src*="bcorp-spread"] {
   .work-hero { grid-column: span 12; flex-direction: column; }
   .work-hero .work-image { flex: none; margin: 12px 12px 0; }
   .work-hero .work-body { justify-content: flex-start; padding: 28px; }
+  .work-showcase { grid-template-columns: 1fr; gap: 24px; padding: 28px; }
+  .work-showcase .showcase-copy { order: -1; padding: 0; }   /* copy first, reel below */
 
   /* Case studies — collapse to single column */
   .case-head { grid-template-columns: 1fr; gap: 16px; align-items: start; }
@@ -2927,6 +2958,9 @@ img[src*="bcorp-spread"] {
   .work-feature, .work-half, .work-third { grid-column: span 1; }
   .work-pair { grid-template-columns: 1fr; }
   .work-pair .pair-cover { max-width: 240px; margin: 0 auto; }
+  .work-showcase { padding: 20px; gap: 18px; }   /* keep grid-column: span 12 from base (full width, like work-pair) */
+  .work-showcase .showcase-reel { grid-template-columns: 1fr; }   /* all three stills full-width */
+  .work-shot.is-primary { grid-column: auto; }
   .case-outcomes { grid-template-columns: 1fr; }
   .case-cover.is-pair { flex-direction: column; gap: 16px; }
   .case-cover.is-pair img { max-height: none; max-width: 60%; }
