@@ -532,21 +532,25 @@ button:focus-visible,
 }
 .tile-hero h1 .hero-period { display: inline-block; }
 @media (prefers-reduced-motion: no-preference) {
-  .motion .tile-hero h1 .gap-close { animation: gapClose 1.25s 0.45s both; }
-  .motion .tile-hero h1 .gap-close::before { animation: gapLine 1.25s 0.45s both; }
-  .motion .tile-hero h1 .hero-period { animation: periodStamp 0.4s cubic-bezier(.3, 1.6, .5, 1) 1.32s both; }
+  /* Gesture animations are anchored to .intro-go (set on the first PAINTED frame)
+     — never to load time — so the choreography always plays in front of the
+     visitor. Without .intro-go (scrolled refresh, reduced motion, no JS) the
+     base styles above already ARE the resting state. */
+  .intro-go .tile-hero h1 .gap-close { animation: gapClose 1.4s 0.95s both; }
+  .intro-go .tile-hero h1 .gap-close::before { animation: gapLine 1.4s 0.95s both; }
+  .intro-go .tile-hero h1 .hero-period { animation: periodStamp 0.45s cubic-bezier(.3, 1.4, .5, 1) 1.95s both; }
   @keyframes gapClose {
-    0%, 30%   { width: 1.1em; animation-timing-function: cubic-bezier(.72, 0, .12, 1); }
+    0%, 30%   { width: 1.1em; animation-timing-function: cubic-bezier(.6, 0, .16, 1); }
     62%, 100% { width: 0.26em; }
   }
   @keyframes gapLine {
     0%        { opacity: 0; }
-    12%, 55%  { opacity: 1; }
-    70%, 100% { opacity: 0; }
+    14%, 55%  { opacity: 1; }
+    72%, 100% { opacity: 0; }
   }
   @keyframes periodStamp {
-    0%   { transform: scale(0.1); opacity: 0; color: var(--accent); }
-    55%  { transform: scale(1.22); opacity: 1; color: var(--accent); }
+    0%   { transform: scale(0.4); opacity: 0; color: var(--accent); }
+    55%  { transform: scale(1.12); opacity: 1; color: var(--accent); }
     100% { transform: scale(1); opacity: 1; color: var(--text); }
   }
 }
@@ -565,11 +569,13 @@ button:focus-visible,
   position: fixed;
   inset: 0;
   z-index: 996;
-  background: color-mix(in srgb, var(--bg) 52%, transparent);
-  -webkit-backdrop-filter: blur(18px) saturate(1.05);
-  backdrop-filter: blur(18px) saturate(1.05);
+  background: color-mix(in srgb, var(--bg) 50%, transparent);
+  -webkit-backdrop-filter: blur(16px) saturate(1.05);
+  backdrop-filter: blur(16px) saturate(1.05);
   pointer-events: none;
-  animation: veilOut 0.6s var(--ease) 1.8s both;
+}
+.intro.intro-go body::before {
+  animation: veilOut 0.8s var(--ease) 2.45s both;
 }
 /* The title must float ABOVE the veil — freeze every ancestor property that
    would create a stacking context (reveal opacity/translate, hover transform)
@@ -581,21 +587,25 @@ button:focus-visible,
   transition: none !important;
   overflow: visible !important;
 }
+/* hidden until the first painted frame; .intro-go starts the breath-in */
 .intro .tile-hero h1 {
   position: relative;
   z-index: 997;
-  transform: translate(var(--intro-dx, 0px), var(--intro-dy, 0px)) scale(1.08);
+  opacity: 0;
+  transform: translate(var(--intro-dx, 0px), var(--intro-dy, 0px)) scale(1.04);
   will-change: transform, opacity, filter;
+}
+.intro.intro-go .tile-hero h1 {
   animation:
-    introIn 0.45s var(--ease) 0.05s both,
-    introSettle 0.6s cubic-bezier(.3, .9, .2, 1) 1.85s both;
+    introIn 0.85s var(--ease) 0.15s both,
+    introSettle 0.75s cubic-bezier(.3, .9, .2, 1) 2.5s both;
 }
 @keyframes introIn {
-  from { opacity: 0; filter: blur(6px); }
+  from { opacity: 0; filter: blur(10px); }
   to   { opacity: 1; filter: blur(0); }
 }
 @keyframes introSettle {
-  from { transform: translate(var(--intro-dx, 0px), var(--intro-dy, 0px)) scale(1.08); }
+  from { transform: translate(var(--intro-dx, 0px), var(--intro-dy, 0px)) scale(1.04); }
   to   { transform: none; }
 }
 @keyframes veilOut { to { opacity: 0; } }

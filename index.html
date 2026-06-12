@@ -30,15 +30,31 @@
       if (!matchMedia("(prefers-reduced-motion: no-preference)").matches) return;
       var root = document.documentElement;
       root.classList.add("intro");
-      var place = function () {
+      var finish = function () { root.classList.remove("intro"); root.classList.add("intro-done"); };
+      var go = function () {
         var h1 = document.querySelector(".tile-hero h1");
-        if (!h1 || window.scrollY > 50) { root.classList.remove("intro"); return; }
+        if (!h1 || window.scrollY > 50) { finish(); return; }
         var r = h1.getBoundingClientRect();
         root.style.setProperty("--intro-dx", ((innerWidth - r.width) / 2 - r.left).toFixed(1) + "px");
         root.style.setProperty("--intro-dy", ((innerHeight - r.height) / 2 - r.top).toFixed(1) + "px");
+        /* anchor the timeline to a frame the user has actually SEEN — animation
+           clocks otherwise start at style application, long before first paint,
+           and the fade-in plays to nobody */
+        requestAnimationFrame(function () { requestAnimationFrame(function () {
+          root.classList.add("intro-go");
+          setTimeout(finish, 3500);
+        }); });
       };
-      if (document.readyState === "loading") addEventListener("DOMContentLoaded", place); else place();
-      setTimeout(function () { root.classList.remove("intro"); root.classList.add("intro-done"); }, 2900);
+      if (document.readyState === "loading") addEventListener("DOMContentLoaded", go); else go();
+      /* backstop: never strand the frosted page. While the tab is hidden we keep
+         waiting (rAF fires on first view and the intro plays then) — but only up
+         to a hard cap, after which we settle to the static page no matter what. */
+      var waited = 0;
+      setTimeout(function check() {
+        if (root.classList.contains("intro-go")) return;
+        if (document.hidden && waited < 24000) { waited += 2000; setTimeout(check, 2000); return; }
+        finish();
+      }, 8000);
     })();
   </script>
 
