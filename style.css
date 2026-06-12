@@ -507,37 +507,47 @@ button:focus-visible,
   font-weight: 500;
   color: var(--accent);
 }
-/* Signature: the gap before "happen" closes into a rust tick on load — "notice the gap, then close it" */
+/* Signature: the headline loads with a REAL gap between "work" and "happen" — a rust
+   hairline marking the distance. The gap closes, the words dock, and the sentence's
+   full stop stamps in. I make complex work happen. Period.
+   ("notice the gap, then close it" — see the console note.) */
 .tile-hero h1 .gap-close {
   display: inline-block;
   position: relative;
-  width: 0.26em;
+  width: 0.26em;              /* resting word gap — identical to the static headline */
   height: 0.16em;
   vertical-align: baseline;
 }
+/* the hairline IS the open gap — it spans whatever the gap currently is */
 .tile-hero h1 .gap-close::before {
   content: "";
   position: absolute;
-  left: 50%;
-  bottom: 0.16em;
-  width: 0.17em;
-  height: 0.17em;
-  transform: translateX(-50%);
-  background: var(--accent);
+  left: 0.05em;
+  right: 0.05em;
+  bottom: 0.18em;
+  height: 0.05em;
   border-radius: 999px;
-  opacity: 0;                 /* invisible at rest; only the on-load gesture shows it */
+  background: var(--accent);
+  opacity: 0;                 /* invisible at rest */
 }
+.tile-hero h1 .hero-period { display: inline-block; }
 @media (prefers-reduced-motion: no-preference) {
-  .motion .tile-hero h1 .gap-close::before {
-    animation: gapClose 1.05s var(--ease) 0.4s both;
-  }
-  /* a rust hairline (the gap) appears, closes into a dot (the brand mark), holds a beat, then resolves away */
+  .motion .tile-hero h1 .gap-close { animation: gapClose 1.5s 0.55s both; }
+  .motion .tile-hero h1 .gap-close::before { animation: gapLine 1.5s 0.55s both; }
+  .motion .tile-hero h1 .hero-period { animation: periodStamp 0.4s cubic-bezier(.3, 1.6, .5, 1) 1.62s both; }
   @keyframes gapClose {
-    0%   { width: 1.6em; height: 3px; opacity: 0; }
-    22%  { opacity: 1; }
-    55%  { width: 0.17em; height: 0.17em; opacity: 1; }
-    78%  { width: 0.17em; height: 0.17em; opacity: 1; }
-    100% { width: 0.17em; height: 0.17em; opacity: 0; }
+    0%, 30%   { width: 1.1em; animation-timing-function: cubic-bezier(.72, 0, .12, 1); }
+    62%, 100% { width: 0.26em; }
+  }
+  @keyframes gapLine {
+    0%        { opacity: 0; }
+    12%, 55%  { opacity: 1; }
+    70%, 100% { opacity: 0; }
+  }
+  @keyframes periodStamp {
+    0%   { transform: scale(0.1); opacity: 0; color: var(--accent); }
+    55%  { transform: scale(1.22); opacity: 1; color: var(--accent); }
+    100% { transform: scale(1); opacity: 1; color: var(--text); }
   }
 }
 .tile-hero .hero-foot {
