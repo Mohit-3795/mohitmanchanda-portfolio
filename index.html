@@ -19,7 +19,28 @@
   <meta name="twitter:title" content="Mohit Manchanda — Operations & strategy leader for complex, high-stakes work">
   <meta name="twitter:description" content="Senior Ops & Sustainability Manager. Leads the work for Motherson Group (~$14bn auto-components leader). Took THEY to Carbon Neutrality. Builds the AI tools the work needs.">
   <meta name="twitter:image" content="https://mohitmanchanda.me/images/og-image.jpg">
-  <script>document.documentElement.classList.add("motion");</script>
+  <script>
+    document.documentElement.classList.add("motion");
+    /* Hero intro (motion users only): the headline opens centred over a frosted
+       veil, plays the gap gesture, then settles into place. We add the class
+       pre-paint, hand the landing-spot deltas to CSS once the DOM exists, and
+       take the class off when the run is over. Inline (not script.js) so the
+       page can never get stuck mid-intro if the external script fails. */
+    (function () {
+      if (!matchMedia("(prefers-reduced-motion: no-preference)").matches) return;
+      var root = document.documentElement;
+      root.classList.add("intro");
+      var place = function () {
+        var h1 = document.querySelector(".tile-hero h1");
+        if (!h1 || window.scrollY > 50) { root.classList.remove("intro"); return; }
+        var r = h1.getBoundingClientRect();
+        root.style.setProperty("--intro-dx", ((innerWidth - r.width) / 2 - r.left).toFixed(1) + "px");
+        root.style.setProperty("--intro-dy", ((innerHeight - r.height) / 2 - r.top).toFixed(1) + "px");
+      };
+      if (document.readyState === "loading") addEventListener("DOMContentLoaded", place); else place();
+      setTimeout(function () { root.classList.remove("intro"); root.classList.add("intro-done"); }, 2900);
+    })();
+  </script>
 
   <link rel="stylesheet" href="style.css">
 </head>

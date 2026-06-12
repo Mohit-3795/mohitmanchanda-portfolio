@@ -532,9 +532,9 @@ button:focus-visible,
 }
 .tile-hero h1 .hero-period { display: inline-block; }
 @media (prefers-reduced-motion: no-preference) {
-  .motion .tile-hero h1 .gap-close { animation: gapClose 1.5s 0.55s both; }
-  .motion .tile-hero h1 .gap-close::before { animation: gapLine 1.5s 0.55s both; }
-  .motion .tile-hero h1 .hero-period { animation: periodStamp 0.4s cubic-bezier(.3, 1.6, .5, 1) 1.62s both; }
+  .motion .tile-hero h1 .gap-close { animation: gapClose 1.25s 0.45s both; }
+  .motion .tile-hero h1 .gap-close::before { animation: gapLine 1.25s 0.45s both; }
+  .motion .tile-hero h1 .hero-period { animation: periodStamp 0.4s cubic-bezier(.3, 1.6, .5, 1) 1.32s both; }
   @keyframes gapClose {
     0%, 30%   { width: 1.1em; animation-timing-function: cubic-bezier(.72, 0, .12, 1); }
     62%, 100% { width: 0.26em; }
@@ -550,6 +550,62 @@ button:focus-visible,
     100% { transform: scale(1); opacity: 1; color: var(--text); }
   }
 }
+
+/* ---- Hero intro: title card over a frosted page, then settle ----
+   The headline materialises at viewport centre over a blurred veil, the gap
+   gesture plays on that stage (timings above), then the finished sentence
+   glides into its layout position as the page sharpens. `.intro` is set
+   pre-paint by index.html (motion users only), `--intro-dx/dy` are measured
+   there, and the class comes off at ~2.9s so everything returns to plain
+   document flow. Timeline: appear 0.05–0.5 · line 0.45–0.6 · gap snaps
+   0.82–1.22 · period stamps 1.32–1.72 · settle + unveil 1.8–2.45. */
+.intro body { overflow: hidden; }
+.intro body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 996;
+  background: color-mix(in srgb, var(--bg) 52%, transparent);
+  -webkit-backdrop-filter: blur(18px) saturate(1.05);
+  backdrop-filter: blur(18px) saturate(1.05);
+  pointer-events: none;
+  animation: veilOut 0.6s var(--ease) 1.8s both;
+}
+/* The title must float ABOVE the veil — freeze every ancestor property that
+   would create a stacking context (reveal opacity/translate, hover transform)
+   or clip the travelling headline (tile overflow), for the intro only. */
+.intro .tile-hero {
+  opacity: 1 !important;
+  translate: none !important;
+  transform: none !important;
+  transition: none !important;
+  overflow: visible !important;
+}
+.intro .tile-hero h1 {
+  position: relative;
+  z-index: 997;
+  transform: translate(var(--intro-dx, 0px), var(--intro-dy, 0px)) scale(1.08);
+  will-change: transform, opacity, filter;
+  animation:
+    introIn 0.45s var(--ease) 0.05s both,
+    introSettle 0.6s cubic-bezier(.3, .9, .2, 1) 1.85s both;
+}
+@keyframes introIn {
+  from { opacity: 0; filter: blur(6px); }
+  to   { opacity: 1; filter: blur(0); }
+}
+@keyframes introSettle {
+  from { transform: translate(var(--intro-dx, 0px), var(--intro-dy, 0px)) scale(1.08); }
+  to   { transform: none; }
+}
+@keyframes veilOut { to { opacity: 0; } }
+/* Failsafe: once the run is over (`.intro-done`, set at ~2.9s — all gesture
+   animations end by 2.45s), pin the resting states explicitly. If anything ever
+   prevents the keyframes from running, the headline still ends whole — gap at
+   word-space, hairline hidden, full stop present in text colour. */
+.intro-done .tile-hero h1 .gap-close { animation: none; width: 0.26em; }
+.intro-done .tile-hero h1 .gap-close::before { animation: none; opacity: 0; }
+.intro-done .tile-hero h1 .hero-period { animation: none; opacity: 1; transform: none; color: var(--text); }
 .tile-hero .hero-foot {
   display: flex;
   flex-direction: column;
